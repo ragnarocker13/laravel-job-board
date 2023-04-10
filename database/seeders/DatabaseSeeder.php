@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(3)->create();
+        // \App\Models\User::factory(30)->create();
 
         // you can do Listing:: since this was already imported
-        Listing::factory(10)->create();
+        Listing::factory(30)->create();
 
         // Listing::create([
         //     'title' => 'SEO Manager',

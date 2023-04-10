@@ -52,8 +52,24 @@ Route::get('/jsoncall/{name}/{lname}', function ($name, $lname) {
         ]);
 });
 
+
+// Show create form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+// Store route for POST method in submitting forms
+Route::post('/listings', [ListingController::class, 'store']);
+
 // Retrieve all the listings in database
-Route::get('/listings', [ListingController::class, 'index']);
+Route::get('/', [ListingController::class, 'index']);
+
+// Show edit form and retrieve existing data
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+
+// Update Listing
+Route::put('/listings/{listing}', [ListingController::class, 'update']);
+
+// Delete Listing
+Route::delete('/listings/{listing}', [ListingController::class, 'delete']);
 
 // A new route to retrieve listings by id number
 Route::get('/listing/{listing}', [ListingController::class, 'show']);

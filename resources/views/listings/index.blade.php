@@ -23,8 +23,14 @@
 
 {{-- unless statement --}}
 @unless (count($listings) == 0)
-    <h1>Listings should show here</h1>
-    
+    <h1>Listings should show here</h1>    
 @endunless
+
+</div>
+
+{{-- Displays paginated information and navigation. If pagination is on in the Models --}}
+<mt-6 class="p-4">
+    {{  $listings->links() }}
+</mt-6>
 
 </x-layout>
