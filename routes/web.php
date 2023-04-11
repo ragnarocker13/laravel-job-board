@@ -3,6 +3,7 @@
 use App\Models\Listing;
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListingController;
 
 /*
@@ -54,22 +55,42 @@ Route::get('/jsoncall/{name}/{lname}', function ($name, $lname) {
 
 
 // Show create form
-Route::get('/listings/create', [ListingController::class, 'create']);
+// An alternative to access the route to logged in users by adding ->middleware('auth');
+// This will automatically redirect all non authenticated users to the named 'login' page
+Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
 
 // Store route for POST method in submitting forms
-Route::post('/listings', [ListingController::class, 'store']);
+Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
 
 // Retrieve all the listings in database
 Route::get('/', [ListingController::class, 'index']);
 
 // Show edit form and retrieve existing data
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit']);
+Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
 // Update Listing
-Route::put('/listings/{listing}', [ListingController::class, 'update']);
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
 
 // Delete Listing
-Route::delete('/listings/{listing}', [ListingController::class, 'delete']);
+Route::delete('/listings/{listing}', [ListingController::class, 'delete'])->middleware('auth');
 
 // A new route to retrieve listings by id number
 Route::get('/listing/{listing}', [ListingController::class, 'show']);
+
+// Show Register and Create Form
+// Middleware('guest') will rediredt authenticated users to the 'home' page
+// Prevents logged in users to access the register route, redirects to the home page
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
+
+// Create new users
+Route::post('/users', [UserController::class, 'store']);
+
+// User logout
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+// Show the login form
+// Prevents logged in users to access the login route, redirects to the home page
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+// Login method
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
