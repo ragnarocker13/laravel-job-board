@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Listing;
 use Illuminate\Database\Seeder;
 
@@ -16,8 +17,18 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(30)->create();
 
+        $user = User::factory()->create([
+            'name' => 'Jason Gruspe',
+            'email' => 'dj.gruspe@gmail.com',
+            'password' => '123123'
+        ]);
+
         // you can do Listing:: since this was already imported
-        Listing::factory(30)->create();
+        Listing::factory(30)->create(
+            [
+                'user_id' => $user->id
+            ]
+        );
 
         // Listing::create([
         //     'title' => 'SEO Manager',

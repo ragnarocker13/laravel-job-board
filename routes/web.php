@@ -77,6 +77,9 @@ Route::delete('/listings/{listing}', [ListingController::class, 'delete'])->midd
 // A new route to retrieve listings by id number
 Route::get('/listing/{listing}', [ListingController::class, 'show']);
 
+// Access the manage listings page
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
+
 // Show Register and Create Form
 // Middleware('guest') will rediredt authenticated users to the 'home' page
 // Prevents logged in users to access the register route, redirects to the home page
@@ -94,3 +97,5 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 
 // Login method
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+

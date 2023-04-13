@@ -15,6 +15,8 @@ class CreateListingsTable extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            // Deletes all created entries that is connected or created by a certain user
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->string('logo')->nullable();
             $table->string('tags');

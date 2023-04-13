@@ -12,6 +12,8 @@ class Listing extends Model
     // fillable property needs to be declared protected here to allow mass assignments
     // or just declare Model::unguard(); to the AppServiceProvider.php
     // protected $fillable = ['title', 'company', 'location', 'email', 'website', 'tags', 'description'];
+
+    protected $fillable = ['user_id', 'title', 'email', 'description'];
     
     // scope methods need to be declared in the model with 'scopeMethodname' 
     // then accessed in the controller using Model::methodname()->get()
@@ -31,4 +33,11 @@ class Listing extends Model
             ->orWhere('location', 'like', '%', request('search') . '%');
         }
     }
+
+    // Adding ORM functionality
+    // Relationship to user
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
 }
